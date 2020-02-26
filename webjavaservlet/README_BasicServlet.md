@@ -33,3 +33,14 @@ See Specification for JavaServer Pages 2.1
 ** JavaServer Pages Standard Tag Library**
 
 The JavaServer Pages Standard Tag Library (JSTL) encapsulates the core functionality common to many Web applications as simple tags. The current version is 1.2 is part of the JavaServer Pages Specification version 2.1.
+
+
+# Servlets - Core aspect of web development in Java – Servlets
+
+Servlet is a class that handles requests, processes them and reply back with a response.
+
+Lifecycle of a Servlet.
+init()
+service()
+destroy()
+

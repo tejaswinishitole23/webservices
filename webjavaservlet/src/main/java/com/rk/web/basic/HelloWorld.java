@@ -53,5 +53,24 @@ public class HelloWorld extends HttpServlet {
 		response.getWriter().append("Servlet:").append(this.toString()).append(". Content From Request:").append(sb.toString());
 		
 	}
+    
+    @Override
+    public void init() throws ServletException {
+    	System.out.println("servlet init called only once at beginning");
+    	super.init();
+    }
+    
+    @Override
+    public void destroy() {
+    	System.out.println("servlet destroy called only once at end");
+    	super.destroy();
+    }
+    
+    @Override
+    protected void service(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+    	System.out.println("servlet service called to check http verb and call relevant method");
+    	super.service(req, resp);
+    }
 
 }
