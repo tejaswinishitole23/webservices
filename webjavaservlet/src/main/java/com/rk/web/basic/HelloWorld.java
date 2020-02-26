@@ -16,8 +16,8 @@ import javax.servlet.http.HttpServletResponse;
  *
 *  You can hit this servlet by calling this url - http://localhost:8080/webjavaservlet/hello
 *  CURL commandss for testing
-*  curl --request GET http://localhost:8080/webjavaservlet/hello
-*  curl --request POST --data "This is body" http://localhost:8080/webjavaservlet/hello
+*  curl "http://localhost:8080/webjavaservlet/hello?a=Str1&b=Str2"
+*  curl --request POST --data "This is body" "http://localhost:8080/webjavaservlet/hello"
 *  
 */
 
@@ -31,7 +31,9 @@ public class HelloWorld extends HttpServlet {
 
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Servlet:").append(this.toString()).append(". Served at: ").append(request.getContextPath());
+    	String a = request.getParameter("a");
+		String b = request.getParameter("b");
+    	response.getWriter().append("Servlet:").append(this.toString()).append(". Parameters: a:").append(a).append(" b:").append(b);
 	}
 
 	/**
