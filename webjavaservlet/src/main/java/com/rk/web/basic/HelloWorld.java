@@ -29,6 +29,7 @@ public class HelloWorld extends HttpServlet {
         super();
     }
 
+    @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.getWriter().append("Servlet:").append(this.toString()).append(". Served at: ").append(request.getContextPath());
 	}
@@ -36,6 +37,7 @@ public class HelloWorld extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+    @Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ServletInputStream inputStream = request.getInputStream();
 		InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
