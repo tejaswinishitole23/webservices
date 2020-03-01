@@ -14,6 +14,28 @@ But there are no standard specifications on use of XML across all programming la
 
 SOAP was designed to work with XML over HTTP and have some sort of specification which could be used across all applications. 
 
+# JAX-WS
+Java API for XML Web Services 
+
+JAX-WS has two main packages:
+
+	javax.xml.ws: the core package of JAX-WS.
+	javax.jws: contains annotations to simplify writing code for web services, such as @WebService, @WebMethod, @WebParam…
+
+# Tools
+* wgen
+* wsimport
+* schemagen 
+* xjc
+* wsimport - tool for generating some code for client part of the application
+
+
+# JAXB 
+Java Architecture for XML Binding
+
+# SAAJ 
+SOAP with Attachments API for Java 
+
 # This sample project
 
 Here we have created a very basic web service
