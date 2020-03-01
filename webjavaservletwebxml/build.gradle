@@ -1,0 +1,15 @@
+plugins {
+    // Apply the java-library plugin to add support for Java Library
+    id 'java-library'
+	id 'war'
+}
+
+repositories {
+    // Use jcenter for resolving dependencies.
+    // You can declare any Maven/Ivy/file repository here.
+    jcenter()
+}
+
+dependencies {
+    providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+}
