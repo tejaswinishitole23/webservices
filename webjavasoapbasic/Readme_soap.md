@@ -24,3 +24,9 @@ Tomcat needs end-points to be put xml file. so we have put sun-jaxws.xml.
 
 We have empty web.xml
 
+Right click and run on server.
+Wsdl - http://localhost:8080/webjavasoapbasic/calc?wsdl
+
+To test put wsdl in SOAPUI . snapshot saved in notes
+
+
