@@ -11,5 +11,15 @@ public class Calculator2WS {
         int k = i + j;
         return k;
     }
+	
+	@WebMethod(action="myop")
+	public int customOp(DataObj dataObj) {
+		if ( dataObj!=null) {
+			int k = dataObj.getI()+dataObj.getJ();
+			return k;
+		}
+		return 0;
+    }
+	
 
 }
