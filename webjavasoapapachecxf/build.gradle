@@ -1,0 +1,78 @@
+plugins {
+	// Apply the java-library plugin to add support for Java Library
+	id 'java-library'
+	id 'java'
+	id 'war'
+}
+
+configurations {
+	cxf
+}
+
+repositories {
+	// Use jcenter for resolving dependencies.
+	// You can declare any Maven/Ivy/file repository here.
+	jcenter()
+}
+
+
+
+dependencies {
+
+	cxf group: 'org.apache.cxf', name: 'cxf-rt-frontend-jaxws', version: '3.3.5'
+	cxf group: 'org.apache.cxf', name: 'cxf-rt-transports-http', version: '3.3.5'
+	cxf group: 'org.springframework', name: 'spring-web', version: '5.2.4.RELEASE'
+	cxf group: 'org.apache.cxf', name: 'cxf-rt-wsdl', version: '3.3.5'
+	cxf group: 'org.apache.cxf', name: 'cxf-tools-wsdlto-frontend-jaxws', version: '3.3.5'
+	cxf group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
+	cxf group: 'org.glassfish.jaxb', name: 'jaxb-runtime', version: '2.3.1'
+	cxf group: 'org.glassfish.jaxb', name: 'jaxb-core', version: '2.3.0.1'
+	cxf group: 'org.apache.cxf', name: 'cxf-tools-wsdlto-databinding-jaxb', version: '3.3.5'
+	cxf group: 'javax.xml.ws', name: 'jaxws-api', version: '2.3.1'
+	cxf group: 'javax.jws', name: 'javax.jws-api', version: '1.1'
+	cxf group: 'org.slf4j', name: 'slf4j-api', version: '1.7.30'
+	cxf group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.30'
+	cxf group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.13.1'
+	cxf group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.13.1'
+
+	
+	api group: 'org.apache.cxf', name: 'cxf-rt-frontend-jaxws', version: '3.3.5'
+	api group: 'org.apache.cxf', name: 'cxf-rt-transports-http', version: '3.3.5'
+	api group: 'org.springframework', name: 'spring-web', version: '5.2.4.RELEASE'
+	api group: 'org.apache.cxf', name: 'cxf-rt-wsdl', version: '3.3.5'
+	api group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
+	api group: 'org.glassfish.jaxb', name: 'jaxb-runtime', version: '2.3.1'
+	api group: 'org.slf4j', name: 'slf4j-api', version: '1.7.30'
+	api group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.30'
+	api group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.13.1'
+	api group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.13.1'
+	api group: 'javax.xml.ws', name: 'jaxws-api', version: '2.3.1'
+	api group: 'javax.jws', name: 'javax.jws-api', version: '1.1'
+	
+
+
+}
+
+ext {
+	wsdlDir = file("src/main/resources/wsdl")
+	codeGenDir = file("src/main/java/")
+	outputPackage="com.rk.web.soap.apache.cxf.codegen"
+}
+
+
+project.ext {
+}
+
+task wsdl2java (type:JavaExec) {
+	inputs.files wsdlDir.listFiles()
+	outputs.upToDateWhen { false }
+	outputs.dir codeGenDir
+	main = "org.apache.cxf.tools.wsdlto.WSDLToJava"
+	classpath configurations.cxf
+	args '-d', codeGenDir,  "-p","$outputPackage", "$wsdlDir/Calculator.wsdl"
+	doLast{
+		println "done.."
+	}
+}
+
+compileJava.dependsOn wsdl2java
