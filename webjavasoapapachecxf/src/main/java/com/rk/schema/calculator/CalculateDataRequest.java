@@ -1,5 +1,5 @@
 
-package com.rk.web.soap.apache.cxf.codegen;
+package com.rk.schema.calculator;
 
 import java.util.ArrayList;
 import java.util.List;

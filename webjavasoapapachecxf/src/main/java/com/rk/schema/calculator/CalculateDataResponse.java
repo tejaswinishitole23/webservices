@@ -1,5 +1,5 @@
 
-package org.rk.schema.calculator;
+package com.rk.schema.calculator;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

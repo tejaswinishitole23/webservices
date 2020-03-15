@@ -4,7 +4,8 @@
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
 	xmlns:calcdata="http://www.rk.com/schema/Calculator"
-	xmlns:tns="http://www.rk.com/service/Calculator/" name="Calculator"
+	xmlns:tns="http://www.rk.com/service/Calculator/" 
+	name="Calculator"
 	targetNamespace="http://www.rk.com/service/Calculator/">
 
 <!-- this gave error - <xsd:schema> targetNameSpace="http://www.rk.com/service/Calculator/" -->
@@ -59,7 +60,7 @@
 	<wsdl:service name="Calculator">
 		<wsdl:port binding="tns:CalculatorSOAP"
 			name="CalculatorSOAP">
-			<soap:address location="http://localhost:8080/webjavasoapapachecxf/services/Calculator" />
+			<soap:address location="http://localhost:8080/webjavasoapapachecxf/services/calculator" />
 		</wsdl:port>
 	</wsdl:service>
 </wsdl:definitions>

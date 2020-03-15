@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+
+
+	<!-- CAUTION - don't forget context scanning. otherwise no service beans 
+		will be available. You need too add xlmns:context, and xsi:schemaLocation -->
+
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+	
+	<context:component-scan base-package="com.rk.service" />
+
+
+	<!-- id - unique id in spring bean context implementor - actual class that 
+		implements web service interface address - same as put in address in wsdl -->
+
+	<jaxws:endpoint id="Calculator"
+		implementor="com.rk.service.impl.CalculatorWS"
+		address="/services/calculator" />
+
+
+</beans>
