@@ -9,23 +9,24 @@ import com.rk.schema.calculator.CalculateDataResponse;
 import com.rk.schema.calculator.ObjectFactory;
 import com.rk.service.calculator.Calculator;
 
-/* LEARN - portName and serviceName are kept under wsdl:service in wsdl.
+/* LEARN - 
+ * portName and serviceName are kept under wsdl:service in wsdl.
  * endpointInterface - fully qualified interface name
- * targetNamespace - 
+ * targetNamespace - defined in wsdl under targetNamespace at top
+ * 
+ * http://localhost:8080/webjavasoapapachecxf/services/calculator?wsdl
+ * 
+ * All services - http://localhost:8080/webjavasoapapachecxf/
+ * 
  *  */
 @WebService(portName="CalculatorSOAP", serviceName="Calculator",
 endpointInterface="com.rk.service.calculator.Calculator", 
 targetNamespace="http://www.rk.com/service/Calculator/")
 public class CalculatorWS implements Calculator {
 
-	static {
-		System.out.println("CalculatorWS. static");
-	}
-	{
-		System.out.println("CalculatorWS. non-static");
-	}
 	@Override
 	public CalculateDataResponse addOrMultiply(CalculateDataRequest request) {
+		System.out.println("Running:"+this.getClass().getName());
 		ObjectFactory factory = new ObjectFactory();
 		CalculateDataResponse response = factory.createCalculateDataResponse();
 		switch ( request.getOperation()) {

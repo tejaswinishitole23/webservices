@@ -18,10 +18,70 @@ The Web 2. 0 movement brought a major change to web application design. AJAX gai
 ** project **
 
 Server will read web.xml.
-Becuase of following entry - org.springframework.web.context.ContextLoaderListener as listener,
-Context Loader will start.
+Because of following entry - org.springframework.web.context.ContextLoaderListener as listener, Context Loader will start.
 
 This will look for contextConfigLocation information and will get pointed to beans.xml file.
 
-beans.xml has endpoint beans and imports cxf.xml which would load CXF related beans.
+beans.xml has end-point beans and imports cxf.xml which would load CXF related beans.
+
+What is to be understood is :
+1. we first write wsdl, and then use it to generate code.
+2. generated code has end-point interface implemented with all the annotations.
+3. Implement a concrete end-point class extending that interface. There are important annotations on this class that comes from wsdl. 
+
+	/* LEARN - 
+	 * portName and serviceName are kept under wsdl:service in wsdl.
+	 * endpointInterface - fully qualified interface name
+	 * targetNamespace - defined in wsdl under targetNamespace at top
+	 *  */
+	@WebService(portName="CalculatorSOAP", serviceName="Calculator",
+	endpointInterface="com.rk.service.calculator.Calculator", 
+	targetNamespace="http://www.rk.com/service/Calculator/")
+	public class CalculatorWS implements Calculator {...}
+	
+
+# Interceptors
+Practically speaking, there are two base classes you may be concerned with. 
+The first is the **AbstractPhaseInterceptor**. 
+The second is **AbstractSoapInterceptor**. 
+
+The only difference between the first and second is that the later will give you a SoapMessage instead of just a Message class. This allows you to access the SOAP headers and version.
+
+http://cxf.apache.org/docs/interceptors.html 
+
+# Default JAX-WS Incoming interceptor chain (Server):
+* AttachmentInInterceptor Parse the mime headers for mime boundaries, finds the "root" part and resets the input stream to it, and stores the other parts in a collection of Attachments
+* StaxInInterceptor Creates an XMLStreamReader from the transport InputStream on the Message
+* ReadHeadersInterceptor Parses the SOAP headers and stores them on the Message
+* SoapActionInInterceptor Parses "soapaction" header and looks up the operation if a unique operation can be found for that action.
+* MustUnderstandInterceptor Checks the MustUnderstand headers, its applicability and process it, if required
+* SOAPHandlerInterceptor SOAP Handler as per JAX-WS
+* LogicalHandlerInInterceptor Logical Handler as per JAX-WS
+* CheckFaultInterceptor Checks for fault, if present aborts interceptor chain and invokes fault handler chain
+* URIMappingInterceptor (for CXF versions <= 2.x) Can handle HTTP GET, extracts operation info and sets the same in the Message
+* DocLiteralnInterceptor Examines the first element in the SOAP body to determine the appropriate Operation (if soapAction did not find one) and calls the Databinding to read in the data.
+* SoapHeaderInterceptor Perform databinding of the SOAP headers for headers that are mapped to parameters
+* WrapperClassInInterceptor For wrapped doc/lit, the DocLiteralInInterceptor probably read in a single JAXB bean. This interceptor pulls the individual parts out of that bean to construct the Object[] needed to invoke the service.
+* SwAInInterceptor For Soap w/ Attachments, finds the appropriate attachments and assigns them to the correct spot in the parameter list.
+* HolderInInterceptor For OUT and IN/OUT parameters, JAX-WS needs to create Holder objects. This interceptor creates the Holders and puts them in the parameter list.
+* ServiceInvokerInInterceptor Actually invokes the service.
+
+# Default Outgoing chain stack (Server):
+* HolderOutInterceptor For OUT and IN/OUT params, pulls the values out of the JAX-WS Holder objects (created in HolderInInterceptor) and adds them to the param list for the out message.
+* SwAOutInterceptor For OUT parts that are Soap attachments, pulls them from the list and holds them for later.
+* WrapperClassOutInterceptor For doc/lit wrapped, takes the remaining parts and creates a wrapper JAXB bean to represent the whole message.
+* SoapHeaderOutFilterInterceptor Removes inbound marked headers
+* SoapActionOutInterceptor Sets the SOAP Action
+* MessageSenderInterceptor Calls back to the Destination object to have it setup the output streams, headers, etc... to prepare the outgoing transport.
+* SoapPreProtocolOutInterceptor This interceptor is responsible for setting up the SOAP version and header, so that this is available to any pre-protocol interceptors that require these to be available.
+* AttachmentOutInterceptor If this service uses attachments (either SwA or if MTOM is enabled), it sets up the Attachment marshallers and the mime stuff that is needed.
+* StaxOutInterceptor Creates an XMLStreamWriter from the OutputStream on the Message.
+* SoapHandlerInterceptor JAX-WS SOAPHandler
+* SoapOutInterceptor Writes start element for soap:envelope and complete elements for other header blocks in the message. Adds start element for soap:body too.
+* LogicalHandlerOutInterceptor JAX-WS Logical handler stuff
+* WrapperOutInterceptor If wrapped doc/lit and not using a wrapper bean or if RPC lit, outputs the wrapper element to the stream.
+* BareOutInterceptor Uses the databinding to write the params out.
+* SoapOutInterceptor$SoapOutEndingInterceptor Closes the soap:body and soap:envelope
+* StaxOutInterceptor$StaxOutEndingInterceptor Flushes the stax stream.
+* MessageSenderInt$MessageSenderEnding Closes the exchange, lets the transport know everything is done and should be flushed to the client.
 
