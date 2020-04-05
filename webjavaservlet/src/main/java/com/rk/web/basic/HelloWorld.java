@@ -33,7 +33,11 @@ public class HelloWorld extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	String a = request.getParameter("a");
 		String b = request.getParameter("b");
-    	response.getWriter().append("Servlet:").append(this.toString()).append(". Parameters: a:").append(a).append(" b:").append(b);
+//    	response.getWriter().append("Servlet:").append(this.toString()).append(". Parameters: a:").append(a).append(" b:").append(b);
+    	
+    	response.getWriter().append("<!DOCTYPE html><html><head><title>HTML output</title></head><body style=\"background-color:#AABBCC;\">")
+		.append("Servlet:").append(this.toString()).append(". Parameters: a:").append(a).append(" b:").append(b)
+		.append("</body></html>");
 	}
 
 	/**
@@ -52,8 +56,12 @@ public class HelloWorld extends HttpServlet {
 			sb.append(c);
 			readchar=bufferedReader.read();
 		}
-		response.getWriter().append("Servlet:").append(this.toString()).append(". Content From Request:").append(sb.toString());
-		
+//		response.getWriter().append("Servlet:").append(this.toString()).append(". Content From Request:").append(sb.toString());
+		response.getWriter().append("<!DOCTYPE html><html><head><title>HTML output</title></head><body style=\"background-color:yellow;\">")
+		.append(this.toString())
+		.append(". Content From Request:")
+		.append(sb.toString())
+		.append("</body></html>");
 	}
     
     @Override

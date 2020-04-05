@@ -1,62 +1,72 @@
 package com.rk.jaxws.cxf.interceptor.in;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
+import java.io.Reader;
+import java.io.StringWriter;
+import java.util.ListIterator;
 
-import javax.xml.stream.XMLStreamConstants;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamReader;
+import javax.xml.stream.XMLStreamWriter;
 
 import org.apache.cxf.binding.soap.SoapMessage;
-import org.apache.cxf.binding.soap.SoapVersion;
-import org.apache.cxf.binding.soap.SoapVersionFactory;
 import org.apache.cxf.interceptor.Fault;
+import org.apache.cxf.interceptor.Interceptor;
+import org.apache.cxf.interceptor.InterceptorChain;
 import org.apache.cxf.message.Message;
 import org.apache.cxf.phase.AbstractPhaseInterceptor;
 import org.apache.cxf.phase.Phase;
-import org.apache.cxf.staxutils.DepthXMLStreamReader;
 import org.apache.cxf.staxutils.StaxUtils;
+import org.w3c.dom.Document;
+import org.xml.sax.XMLReader;
+
+import com.rk.jaxws.cxf.interceptor.common.InterceptorUtil;
 
 public class TestMessageInterceptor extends AbstractPhaseInterceptor<SoapMessage> {
 
 	public TestMessageInterceptor() {
-		super(Phase.PRE_INVOKE);
+		super(Phase.UNMARSHAL);
 	}
 
 	@Override
 	public void handleMessage(SoapMessage message) throws Fault {
 		System.out.println("Interceptor:" + this.getClass().getName());
-		printAvailableFormats(message);
-		readMessageBody(message);
+		InterceptorUtil.printAvailableFormats(message);
+//		readMessageBody(message);
+	}
+
+	private void readMessageBody(SoapMessage message) {
+		try {
+			XMLStreamReader xmlReader = message.getContent(XMLStreamReader.class);
+			
+			if ( xmlReader!=null) {
+				
+				XMLInputFactory infactory = XMLInputFactory.newInstance();
+				XMLOutputFactory factory      = XMLOutputFactory.newInstance();
+				StringWriter sw = new StringWriter();
+				XMLStreamWriter writer = factory.createXMLStreamWriter(sw);
+				StaxUtils.copy(xmlReader, writer);
+				
+				writer.flush();
+				sw.flush();
+				StringBuffer sb = sw.getBuffer();
+		        System.out.println("sb:" + sb.toString());
+
+				message.setContent(XMLStreamReader.class, xmlReader);
+				
+			} else {
+				System.out.println("XMLReader is null");
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.getMessage();
+		}
 	}
 
 	
-	@SuppressWarnings("rawtypes")
-	private void readMessageBody(SoapMessage message) {
-		List contents = message.getContent(List.class);
-		for (Object object : contents) {
-			System.out.println(object.getClass().getCanonicalName());
-			System.out.println("Object found is :" + object);
-		}
-	}
-
-	private void printAvailableFormats(SoapMessage message) {
-		String contentType = (String) message.get(Message.CONTENT_TYPE);
-		System.out.println("contentType:" + contentType);
-
-		/*
-		 * Following formats found contentFormat:java.util.List
-		 * contentFormat:java.io.InputStream
-		 * contentFormat:org.apache.cxf.io.DelegatingInputStream
-		 * contentFormat:javax.xml.stream.XMLStreamReader
-		 */
-
-		Set<Class<?>> contentFormats = message.getContentFormats();
-		Iterator<Class<?>> iterator2 = contentFormats.iterator();
-		while (iterator2.hasNext()) {
-			Class<?> next = iterator2.next();
-			System.out.println("contentFormat:" + next.getCanonicalName());
-		}
-	}
+	
 
 }

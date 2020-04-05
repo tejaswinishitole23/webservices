@@ -14,11 +14,14 @@ public class Calculator2WS {
 	
 	@WebMethod(action="myop")
 	public int customOp(DataObj dataObj) {
-		if ( dataObj!=null) {
-			int k = dataObj.getI()+dataObj.getJ();
-			return k;
+		switch ( dataObj.getOperation()) {
+		
+		case "+":return dataObj.getI()+dataObj.getJ();
+		case "*":return dataObj.getI()*dataObj.getJ();
+		case "-":return dataObj.getI()-dataObj.getJ();
+		case "/":return dataObj.getI()/dataObj.getJ();
+		default: return 0;
 		}
-		return 0;
     }
 	
 

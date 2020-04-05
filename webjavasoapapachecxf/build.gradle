@@ -59,7 +59,7 @@ dependencies {
 ext {
 	wsdlDir = file("src/main/resources/wsdl")
 	codeGenDir = file("src/main/java/")
-	outputPackage="com.rk.web.soap.apache.cxf.codegen"
+	//outputPackage="com.rk.web.soap.apache.cxf.codegen"
 }
 
 

@@ -11,25 +11,28 @@ import org.apache.cxf.message.Message;
 import org.apache.cxf.phase.AbstractPhaseInterceptor;
 import org.apache.cxf.phase.Phase;
 
-public class SetupInterceptor extends AbstractPhaseInterceptor<Message> {
+import com.rk.jaxws.cxf.interceptor.common.InterceptorUtil;
+
+public class SetupInterceptor extends AbstractPhaseInterceptor<SoapMessage> {
 
 	public SetupInterceptor() {
 		super(Phase.SETUP);
 	}
 
 	@Override
-	public void handleMessage(Message message) throws Fault {
-		SoapMessage soapMessage=(SoapMessage)message;
+	public void handleMessage(SoapMessage message) throws Fault {
 		System.out.println("Interceptor:"+this.getClass().getName());
+		InterceptorUtil.printAvailableFormats(message);
+		
 		System.out.println("print header - 1st time.");
-		soapMessage.getHeaders().forEach(x->System.out.println(x.getName().toString()));
+		message.getHeaders().forEach(x->System.out.println(x.getName().toString()));
 		QName qname = new QName("http://www.rk.com/service/Calculator/","apikey");
 		String apikey="rightkarma";
 		try {
 			SoapHeader soapHeader = new SoapHeader(qname, apikey, new JAXBDataBinding(apikey.getClass()));
-			soapMessage.getHeaders().add(soapHeader);
+			message.getHeaders().add(soapHeader);
 			System.out.println("print header - 2nd time.");
-			soapMessage.getHeaders().forEach(x->System.out.println(x.getName().toString()));
+			message.getHeaders().forEach(x->System.out.println(x.getName().toString()));
 		} catch (JAXBException e) {
 			System.out.println("test message interceptor error");
 			e.printStackTrace();

@@ -4,14 +4,21 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
+import javax.xml.namespace.QName;
+
 import org.apache.cxf.binding.soap.SoapMessage;
+import org.apache.cxf.headers.Header;
 import org.apache.cxf.helpers.IOUtils;
 import org.apache.cxf.interceptor.Fault;
 import org.apache.cxf.message.Message;
 import org.apache.cxf.phase.AbstractPhaseInterceptor;
 import org.apache.cxf.phase.Phase;
+
+import com.rk.jaxws.cxf.interceptor.common.InterceptorUtil;
 
 public class PreStreamInterceptor extends AbstractPhaseInterceptor<SoapMessage> {
 
@@ -20,12 +27,25 @@ public class PreStreamInterceptor extends AbstractPhaseInterceptor<SoapMessage> 
 	}
 
 	@Override
-	public void handleMessage(SoapMessage soapMessage) throws Fault {
+	public void handleMessage(SoapMessage message) throws Fault {
 		System.out.println("Interceptor:"+this.getClass().getName());
-		printAvailableFormats(soapMessage);
-		printUsingInputStream(soapMessage);
+		InterceptorUtil.printAvailableFormats(message);
+		
+		printUsingInputStream(message);
+		printProtocolHeaders(message);
+		
+		
 	}
 	
+	private void printProtocolHeaders(SoapMessage message) {
+		System.out.println("Print Headers:");
+		Map<String, List<String>> headers2 =
+		        (Map<String, List<String>>)message.get(Message.PROTOCOL_HEADERS);
+		for ( String hdr: headers2.keySet()) {
+			System.out.println(hdr);
+		}
+	}
+
 	// LEARN - Using InputStream to get data works only in PRE_STREAM
 	private void printUsingInputStream(SoapMessage message) {
 		try {
@@ -44,24 +64,5 @@ public class PreStreamInterceptor extends AbstractPhaseInterceptor<SoapMessage> 
 		}
 	}
 	
-	private void printAvailableFormats(SoapMessage message) {
-		String contentType = (String) message.get(Message.CONTENT_TYPE);
-		System.out.println("contentType:" + contentType);
-
-		/*
-		 * Following formats found next:java.util.List next:java.io.InputStream
-		 * next:org.w3c.dom.Node next:javax.xml.stream.XMLStreamReader
-		 * next:org.apache.cxf.io.DelegatingInputStream
-		 */
-		Message inMessage = message.getExchange().getInMessage();
-		if (null != inMessage) {
-			Set<Class<?>> contentFormats = inMessage.getContentFormats();
-			Iterator<Class<?>> iterator2 = contentFormats.iterator();
-			while (iterator2.hasNext()) {
-				Class<?> next = iterator2.next();
-				System.out.println("contentFormat:" + next.getCanonicalName());
-			}
-		}
-	}
 
 }
