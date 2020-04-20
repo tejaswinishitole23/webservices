@@ -28,33 +28,21 @@
 		implementor="com.rk.service.impl.CalculatorWS"
 		address="/services/calculator" />
 
-	<bean id="TestMessageInterceptor" class="com.rk.jaxws.cxf.interceptor.in.TestMessageInterceptor"/>
+	<bean id="PrintInterceptorsAndMessageFormats" class="com.rk.jaxws.cxf.interceptor.in.PrintInterceptorsAndMessageFormats"/>
 	<bean id="PreStreamInterceptor" class="com.rk.jaxws.cxf.interceptor.in.PreStreamInterceptor"/>
-	<bean id="PostStreamInterceptor" class="com.rk.jaxws.cxf.interceptor.in.PostStreamInterceptor"/>
-	<bean id="ReadInterceptor" class="com.rk.jaxws.cxf.interceptor.in.ReadInterceptor"/>
-	<bean id="ReadSoapInterceptor" class="com.rk.jaxws.cxf.interceptor.in.ReadSoapInterceptor"/>
 	<bean id="PreInvokeInterceptor" class="com.rk.jaxws.cxf.interceptor.in.PreInvokeInterceptor"/>
 	
-	<bean id="SendInterceptor" class="com.rk.jaxws.cxf.interceptor.out.SendInterceptor"/>
-	<bean id="PrepareSendInterceptor" class="com.rk.jaxws.cxf.interceptor.out.PrepareSendInterceptor"/>
 	<bean id="SetupInterceptor" class="com.rk.jaxws.cxf.interceptor.out.SetupInterceptor"/>
-	<bean id="WriteInterceptor" class="com.rk.jaxws.cxf.interceptor.out.WriteInterceptor"/>
 
 	<!-- Interceptors would be called as per apache cxf pipeline. below sequence does not matter -->
 	<cxf:bus>
 		<cxf:inInterceptors>
-			<ref bean="TestMessageInterceptor"/>
-			<ref bean="PostStreamInterceptor"/>
+			<ref bean="PrintInterceptorsAndMessageFormats"/>
 			<ref bean="PreStreamInterceptor"/>
-			<ref bean="ReadInterceptor"/>
-			<ref bean="ReadSoapInterceptor"/>
 			<ref bean="PreInvokeInterceptor"/>
 		</cxf:inInterceptors>
 		<cxf:outInterceptors>
-			<ref bean="SendInterceptor" />
-			<ref bean="PrepareSendInterceptor" />
 			<ref bean="SetupInterceptor" />
-			<ref bean="WriteInterceptor" />
 		</cxf:outInterceptors>
 	</cxf:bus>
 

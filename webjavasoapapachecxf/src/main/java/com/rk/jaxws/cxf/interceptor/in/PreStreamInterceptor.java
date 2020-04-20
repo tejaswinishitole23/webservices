@@ -3,22 +3,17 @@ package com.rk.jaxws.cxf.interceptor.in;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-
-import javax.xml.namespace.QName;
 
 import org.apache.cxf.binding.soap.SoapMessage;
-import org.apache.cxf.headers.Header;
 import org.apache.cxf.helpers.IOUtils;
 import org.apache.cxf.interceptor.Fault;
 import org.apache.cxf.message.Message;
 import org.apache.cxf.phase.AbstractPhaseInterceptor;
 import org.apache.cxf.phase.Phase;
 
-import com.rk.jaxws.cxf.interceptor.common.InterceptorUtil;
+import com.rk.jaxws.model.RequestData;
 
 public class PreStreamInterceptor extends AbstractPhaseInterceptor<SoapMessage> {
 
@@ -28,41 +23,58 @@ public class PreStreamInterceptor extends AbstractPhaseInterceptor<SoapMessage> 
 
 	@Override
 	public void handleMessage(SoapMessage message) throws Fault {
-		System.out.println("Interceptor:"+this.getClass().getName());
-		InterceptorUtil.printAvailableFormats(message);
+		System.out.println("App Interceptor:"+this.getClass().getName());
+
+		if (null==message.getContent(RequestData.class)) {
+			message.setContent(RequestData.class, new RequestData());
+		}
+		RequestData requestData = message.getContent(RequestData.class);
 		
-		printUsingInputStream(message);
-		printProtocolHeaders(message);
 		
+		// Add protocol headers
+		@SuppressWarnings("unchecked")
+		Map<String, List<String>> protocolHeaders = (Map<String, List<String>>)message.get(Message.PROTOCOL_HEADERS);
+		requestData.getProtocolHeaders().putAll(protocolHeaders);
+		
+		// Add SoapRequestString to RequestData
+		requestData.setSoapString(extractPayLoadStringFromMessage(message));
 		
 	}
 	
-	private void printProtocolHeaders(SoapMessage message) {
-		System.out.println("Print Headers:");
-		Map<String, List<String>> headers2 =
-		        (Map<String, List<String>>)message.get(Message.PROTOCOL_HEADERS);
-		for ( String hdr: headers2.keySet()) {
-			System.out.println(hdr);
-		}
-	}
-
+	
 	// LEARN - Using InputStream to get data works only in PRE_STREAM
-	private void printUsingInputStream(SoapMessage message) {
+	private String extractPayLoadStringFromMessage(SoapMessage message) {
 		try {
-			
 			//Get the message body into payload[] and set a new non-consumed  inputStream into Message
 	        InputStream in = message.getContent(InputStream.class);
 	        byte payload[] = IOUtils.readBytesFromStream(in);
 	        ByteArrayInputStream bin = new ByteArrayInputStream(payload);
 	        message.setContent(InputStream.class, bin);
 	        
-	        String s = new String(payload, StandardCharsets.UTF_8);
-	        System.out.println(s);
-		}
-		catch ( Exception e) {
+	        return new String(payload, StandardCharsets.UTF_8);
+	        
+		} catch ( Exception e) {
 			e.printStackTrace();
 		}
+		return null;
 	}
 	
 
 }
+/* sample protocol headers :
+accept-encoding
+gzip,deflate
+connection
+Keep-Alive
+Content-Length
+700
+content-type
+text/xml;charset=UTF-8
+host
+localhost:8080
+SOAPAction
+"http://www.rk.com/service/Calculator/AddOrMultiply"
+user-agent
+Apache-HttpClient/4.1.1 (java 1.5)
+
+*/

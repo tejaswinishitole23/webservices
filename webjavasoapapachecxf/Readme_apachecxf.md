@@ -1,3 +1,8 @@
+**CXF Website**
+
+http://cxf.apache.org/docs/cxf-architecture.html
+
+
 **Defining SOA**
 
 As Java web services are based on the service oriented architecture design pattern, I want to assure we move forward with the same definition of SOA. At a high level, a defined SOA is a way to group business capabilities and provide a contract for consumers to access them. The use of SOA should increase the agility of an organization and reduce the overhead of IT.
@@ -14,31 +19,6 @@ In 2006, Sun released JSR 224. Specification was referred to as JAX-WS 2. 0. The
 **JAX-RS**
 The Web 2. 0 movement brought a major change to web application design. AJAX gained in popularity as a mechanism to call web services directly from the view. Mobile and tablet application development erupted in 2008 and with it came requirements to build or reuse web services to support cross-channel business logic. A new problem arose as JAX-WS web services were less than ideal for AJAX and mobile clients. To solve this problem, an approach first introduced in 2000 by Roy Fielding at the University of California gained popularity as an alternative to WSDL and SOAP-based web services. This approach is called representational state transfer, or REST. To address the increasing popularity of REST, Sun introduced JSR 311 in 2008 with a reference name of JAX-RS. This specification was further improved upon by Oracle in 2013 with the release of JSR 339 as JAX-RS version 2. 0.
 
-
-** project **
-
-Server will read web.xml.
-Because of following entry - org.springframework.web.context.ContextLoaderListener as listener, Context Loader will start.
-
-This will look for contextConfigLocation information and will get pointed to beans.xml file.
-
-beans.xml has end-point beans and imports cxf.xml which would load CXF related beans.
-
-What is to be understood is :
-1. we first write wsdl, and then use it to generate code.
-2. generated code has end-point interface implemented with all the annotations.
-3. Implement a concrete end-point class extending that interface. There are important annotations on this class that comes from wsdl. 
-
-	/* LEARN - 
-	 * portName and serviceName are kept under wsdl:service in wsdl.
-	 * endpointInterface - fully qualified interface name
-	 * targetNamespace - defined in wsdl under targetNamespace at top
-	 *  */
-	@WebService(portName="CalculatorSOAP", serviceName="Calculator",
-	endpointInterface="com.rk.service.calculator.Calculator", 
-	targetNamespace="http://www.rk.com/service/Calculator/")
-	public class CalculatorWS implements Calculator {...}
-	
 
 # Interceptors
 Practically speaking, there are two base classes you may be concerned with. 
