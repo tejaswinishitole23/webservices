@@ -24,16 +24,13 @@ public class PrintInterceptorsAndMessageFormats extends AbstractPhaseInterceptor
 	@Override
 	public void handleMessage(Message message) throws Fault {
 		System.out.println("Interceptor:" + this.getClass().getName()+" Object:"+this);
-		try {
-			System.out.println("Thread:"+Thread.currentThread().getName());
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		printInterceptorsAndFormats(message);
+		
+		/* Uncomment this line to see all interceptors and formats */
+		// printInterceptorsAndFormats(message);
+		
 	}
 
+	@SuppressWarnings("unused")
 	private void printInterceptorsAndFormats(Message message) {
 		printAvailableFormats((SoapMessage)message);
 		Iterator<Interceptor<? extends Message>> iterator = message.getInterceptorChain().iterator();
