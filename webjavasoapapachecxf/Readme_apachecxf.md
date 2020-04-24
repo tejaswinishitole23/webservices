@@ -2,6 +2,9 @@
 
 http://cxf.apache.org/docs/cxf-architecture.html
 
+Other links
+https://access.redhat.com/documentation/en-us/red_hat_jboss_fuse/6.1/html/apache_cxf_development_guide/index
+https://cwiki.apache.org/confluence/display/CXF20DOC/Developing+a+Service 
 
 **Defining SOA**
 

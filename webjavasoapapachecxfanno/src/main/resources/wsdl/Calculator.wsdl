@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:calcdata="http://www.rk.com/schema/Calculator"
+	xmlns:mwdsheader="http://www.rk.com/schema/MwdsHeader"
+	xmlns:tns="http://www.rk.com/service/Calculator/" name="Calculator"
+	targetNamespace="http://www.rk.com/service/Calculator/">
+
+	<!-- Define the message types. Defining in seperate XSD keeps the wsdl clean -->
+
+	<wsdl:types>
+		<xsd:schema>
+			<xsd:import
+				namespace="http://www.rk.com/schema/Calculator"
+				schemaLocation="../xsd/Calculator.xsd">
+			</xsd:import>
+			<xsd:import 
+			namespace="http://www.rk.com/schema/MwdsHeader"
+				schemaLocation="../xsd/MwdsHeader.xsd">
+			</xsd:import>
+		</xsd:schema>
+	</wsdl:types>
+
+
+	<!-- Define the message - input and output. This is like parameters and 
+		return type for java method. -->
+	<!-- For these parameters and return data, type of data is defined above 
+	using xsd -->
+	<wsdl:message name="MwdsHeader">
+		<wsdl:part element="mwdsheader:mwdsHeaderInfo"
+				   name="mwdsHeaderInfo" />
+	</wsdl:message>
+	<wsdl:message name="MwdsHeaderResponse">
+		<wsdl:part element="mwdsheader:mwdsHeaderInfoResponse"
+				   name="mwdsHeaderInfoResponse" />
+	</wsdl:message>
+
+	<wsdl:message name="AddorMultiplyRequest">
+		<wsdl:part element="calcdata:calculateDataRequest"
+			name="calculateDataRequest" />
+	</wsdl:message>
+
+	<wsdl:message name="AddorMultiplyResponse">
+		<wsdl:part element="calcdata:calculateDataResponse"
+			name="calculateDataResponse" />
+	</wsdl:message>
+
+	<!-- Define the portType. This is like defining the class and methods in 
+		java -->
+	<wsdl:portType name="Calculator">
+		<wsdl:operation name="AddOrMultiply">
+			<wsdl:input message="tns:AddorMultiplyRequest" />
+			<wsdl:output message="tns:AddorMultiplyResponse" />
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<!-- Abstract description of wsdl is above Concrete implementation of wsdl 
+		is below -->
+
+	<wsdl:binding name="CalculatorSOAP" type="tns:Calculator">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="AddOrMultiply">
+			<soap:operation
+				soapAction="http://www.rk.com/service/Calculator/AddOrMultiply" />
+			<wsdl:input>
+				<soap:body use="literal" />
+				<soap:header message="tns:MwdsHeader" part="mwdsHeaderInfo" use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+				<soap:header message="tns:MwdsHeaderResponse" part="mwdsHeaderInfoResponse" use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<!-- Where to find the defined service is coded in service element -->
+	<!-- Location should point to physical location of service -->
+	<wsdl:service name="Calculator">
+		<wsdl:port binding="tns:CalculatorSOAP"
+			name="CalculatorSOAP">
+			<soap:address
+				location="http://localhost:8080/webjavasoapapachecxfanno/services/calculator" />
+		</wsdl:port>
+	</wsdl:service>
+
+</wsdl:definitions>

@@ -23,7 +23,9 @@
 
 	<!-- id - unique id in spring bean context implementor - actual class that 
 		implements web service interface address - same as put in address in wsdl -->
-
+	<!-- The jaxws:endpoint element creates an EndpointImpl under the covers .
+	read more here - https://cwiki.apache.org/confluence/display/CXF20DOC/JAX-WS+Configuration
+	--> 
 	<jaxws:endpoint id="Calculator"
 		implementor="com.rk.service.impl.CalculatorWS"
 		address="/services/calculator" />

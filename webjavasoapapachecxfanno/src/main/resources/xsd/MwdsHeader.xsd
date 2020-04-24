@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.rk.com/schema/MwdsHeader"
+	xmlns:tns="http://www.rk.com/schema/MwdsHeader"
+	elementFormDefault="qualified">
+
+	<xs:element name="mwdsHeaderInfo">
+		<xs:annotation>
+			<xs:documentation>
+				Root Element
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="requestId" type="xs:string" />
+				<xs:element name="impersonateUser" type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="mwdsHeaderInfoResponse">
+		<xs:annotation>
+			<xs:documentation>
+				Root Element
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="requestId" type="xs:string" />
+				<xs:element name="actualUser" type="xs:string" />
+				<xs:element name="impersonateUser" type="xs:string" />
+				<xs:element name="apidescription" type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+
+</xs:schema>
