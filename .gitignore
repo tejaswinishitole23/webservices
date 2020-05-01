@@ -99,4 +99,6 @@ local.properties
 #intellij
 .idea/
 .idea/*
+out/
 
+*/.vscode/

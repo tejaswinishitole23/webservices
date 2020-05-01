@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>REM View</title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <!-- change color of abbr.. IE below -->
+    <style type="text/css">
+        table
+            
+        th {
+            color:blue
+        }
+        tfoot {
+            color:brown
+        }
+    </style>
+</head>
+<body>
+<!-- align will center table on the web page... -->
+<!-- rules can be cols, none -->
+<!-- use frame instead of border as it would give more control -->
+<!-- or use style sheets to style your tables..here colors are used in stylesheet to color the table -->
+<table cellpadding="10px" width="250px" align="center" frame="border" rules="all" summary="this is table summary">
+    <caption>Demo table</caption>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>DOB</th>
+            <th>City</th>
+        </tr>
+    </thead>
+    <!-- note footer comes before body -->
+    <tfoot>
+        <tr>
+            <td colspan="3">No of people : 3</td>
+        </tr>
+    </tfoot>
+    <tbody>
+        <tr>
+            <td>A</td>
+            <td>23-Sep-1997</td>
+            <td>Dublin</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>14-Oct-2001</td>
+            <td>Moscow</td>
+        </tr>
+        <tr>
+            <td>C</td>
+            <td>1-Jan-1955</td>
+            <td>London</td>
+        </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
