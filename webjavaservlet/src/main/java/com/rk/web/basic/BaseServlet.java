@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  *
 *  You can hit this servlet by calling this url - http://localhost:8080/webjavaservlet/hello
 *  CURL commandss for testing
-*  curl "http://localhost:8080/webjavaservlet/hello?a=Str1&b=Str2"
+*  curl "http://localhost:8080/webjavaservlet/"
 *  curl --request POST --data "This is body" "http://localhost:8080/webjavaservlet/hello"
 *  
 */
