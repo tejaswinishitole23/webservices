@@ -1,0 +1,25 @@
+<calculateDataRequest>
+	<operation>+</operation>
+	<!--Zero or more repetitions:-->
+	<numbers>44</numbers>
+	<numbers>25</numbers>
+
+	<!--1 or more repetitions:-->
+	<user>
+		<userId>3249572</userId>
+		<userName>asd</userName>
+	</user>
+</calculateDataRequest>
+=================================================
+
+{
+    "operation": "+",
+    "numbers": [
+      "444",
+      "25"
+    ],
+    "user": {
+      "userId": "3249572",
+      "userName": "asd"
+    }
+}

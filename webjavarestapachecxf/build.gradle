@@ -1,0 +1,83 @@
+plugins {
+	// Apply the java-library plugin to add support for Java Library
+	id 'java-library'
+	id 'war'
+}
+
+configurations {
+	xjc
+}
+
+repositories {
+	// Use jcenter for resolving dependencies.
+	// You can declare any Maven/Ivy/file repository here.
+	jcenter()
+}
+
+
+
+dependencies {
+
+	xjc  'javax.xml.bind:jaxb-api:2.2.11' 
+	xjc  'com.sun.xml.bind:jaxb-xjc:2.2.11'    
+	xjc  'com.sun.xml.bind:jaxb-impl:2.2.11'
+	xjc  'com.sun.xml.bind:jaxb-osgi:2.2.11'
+
+	api group: 'org.apache.cxf', name: 'cxf-rt-frontend-jaxrs', version: '3.3.5'
+	api group: 'org.apache.cxf', name: 'cxf-rt-transports-http', version: '3.3.5'
+	api group: 'org.springframework', name: 'spring-web', version: '5.2.4.RELEASE'
+	api group: 'org.springframework', name: 'spring-context', version: '5.2.4.RELEASE'
+	api group: 'org.apache.cxf', name: 'cxf-rt-wsdl', version: '3.3.5'
+	api group: 'org.apache.cxf', name: 'cxf-tools-wsdlto-frontend-jaxws', version: '3.3.5'
+	api group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
+	api group: 'org.glassfish.jaxb', name: 'jaxb-runtime', version: '2.3.1'
+	api group: 'org.glassfish.jaxb', name: 'jaxb-core', version: '2.3.0.1'
+	api group: 'org.apache.cxf', name: 'cxf-tools-wsdlto-databinding-jaxb', version: '3.3.5'
+	api group: 'org.slf4j', name: 'slf4j-api', version: '1.7.30'
+	api group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.30'
+	api group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.13.1'
+	api group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.13.1'
+	api group: 'javax.xml.ws', name: 'jaxws-api', version: '2.3.1'
+	api group: 'javax.jws', name: 'javax.jws-api', version: '1.1'
+	api group: 'javax.activation', name: 'activation', version: '1.1.1'
+	api group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
+	
+	api group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.11.0'
+	api group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.11.0'
+	api group: 'com.fasterxml.jackson.jaxrs', name: 'jackson-jaxrs-json-provider', version: '2.11.0'
+	
+	providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+}
+
+task xjc () {
+	ext.schemaDir = 'src/main/resources/xsd/'
+	ext.outputDir = 'src/main/java'
+	ext.outputPackage = 'in.rk.learn.web.java.rest.codegen'
+	ext.schemas = ['**/*.xsd']
+	ext.bindings = ['**/*.xjb']
+	ext.classes = []
+	ext.args = ['-no-header']
+	
+	doLast {
+	ant.taskdef(
+		name:'xjc',
+		classname: 'com.sun.tools.xjc.XJC2Task', 
+		classpath: configurations.xjc.asPath)
+	ant.xjc(
+		destDir:outputDir, 
+		package:outputPackage, 
+		extension: 'true' ) {
+			schema(
+				dir: schemaDir, 
+				includes: schemas.join(' ') )
+			binding(
+				dir: schemaDir, 
+				includes: bindings.join(' '))
+			args.each { 
+				val -> arg(value:val) 
+			}
+		}
+	}
+}
+
+compileJava.dependsOn xjc

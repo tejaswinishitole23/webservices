@@ -1,0 +1,27 @@
+
+service - http://localhost:8080/webjavasoapapachecxfanno/services/calculator
+
+
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:mwd="http://www.rk.com/schema/MwdsHeader" xmlns:cal="http://www.rk.com/schema/Calculator">
+   <soapenv:Header>
+   	<random>asdf</random>
+      <mwd:mwdsHeaderInfo>
+         <mwd:requestId>666666</mwd:requestId>
+         <mwd:impersonateUser>hp</mwd:impersonateUser>
+      </mwd:mwdsHeaderInfo>
+   </soapenv:Header>
+   <soapenv:Body>
+      <cal:calculateDataRequest>
+         <cal:operation>+</cal:operation>
+         <!--Zero or more repetitions:-->
+         <cal:numbers>44</cal:numbers>
+         <cal:numbers>25</cal:numbers>
+
+         <!--1 or more repetitions:-->
+         <cal:user>
+            <cal:userId>3249572</cal:userId>
+            <cal:userName>asd</cal:userName>
+         </cal:user>
+      </cal:calculateDataRequest>
+   </soapenv:Body>
+</soapenv:Envelope>

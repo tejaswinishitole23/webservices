@@ -3,17 +3,16 @@
 	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-	xmlns:calcdata="http://www.rk.com/schema/Calculator"
-	xmlns:tns="http://www.rk.com/service/Calculator/" 
+	xmlns:calcdata="http://www.rk.in/schema/Calculator"
+	xmlns:tns="http://www.rk.in/service/Calculator/" 
 	name="Calculator"
-	targetNamespace="http://www.rk.com/service/Calculator/">
+	targetNamespace="http://www.rk.in/service/Calculator/">
 
-<!-- this gave error - <xsd:schema> targetNameSpace="http://www.rk.com/service/Calculator/" -->
 	<!-- Define the message types. Defining in seperate XSD keeps the wsdl clean -->
 	
 	<wsdl:types>
 		<xsd:schema >
-			<xsd:import namespace="http://www.rk.com/schema/Calculator"
+			<xsd:import namespace="http://www.rk.in/schema/Calculator"
 				schemaLocation="../xsd/Calculator.xsd">
   			</xsd:import>
   		</xsd:schema>
@@ -46,7 +45,7 @@
 	<wsdl:binding name="CalculatorSOAP" type="tns:Calculator">
 		<soap:binding style="document"	transport="http://schemas.xmlsoap.org/soap/http" />
 		<wsdl:operation name="AddOrMultiply">
-			<soap:operation	soapAction="http://www.rk.com/service/Calculator/AddOrMultiply" />
+			<soap:operation	soapAction="http://www.rk.in/service/Calculator/AddOrMultiply" />
 			<wsdl:input>
 				<soap:body use="literal" />
 			</wsdl:input>

@@ -18,7 +18,7 @@
 	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
 
 	<context:component-scan
-		base-package="com.rk.service" />
+		base-package="in.rk.service" />
 
 
 	<!-- id - unique id in spring bean context implementor - actual class that 
@@ -27,14 +27,14 @@
 	read more here - https://cwiki.apache.org/confluence/display/CXF20DOC/JAX-WS+Configuration
 	--> 
 	<jaxws:endpoint id="Calculator"
-		implementor="com.rk.service.impl.CalculatorWS"
+		implementor="in.rk.service.impl.CalculatorWS"
 		address="/services/calculator" />
 
-	<bean id="PrintInterceptorsAndMessageFormats" class="com.rk.jaxws.cxf.interceptor.in.PrintInterceptorsAndMessageFormats"/>
-	<bean id="PreStreamInterceptor" class="com.rk.jaxws.cxf.interceptor.in.PreStreamInterceptor"/>
-	<bean id="PreInvokeInterceptor" class="com.rk.jaxws.cxf.interceptor.in.PreInvokeInterceptor"/>
+	<bean id="PrintInterceptorsAndMessageFormats" class="in.rk.jaxws.cxf.interceptor.in.PrintInterceptorsAndMessageFormats"/>
+	<bean id="PreStreamInterceptor" class="in.rk.jaxws.cxf.interceptor.in.PreStreamInterceptor"/>
+	<bean id="PreInvokeInterceptor" class="in.rk.jaxws.cxf.interceptor.in.PreInvokeInterceptor"/>
 	
-	<bean id="SetupInterceptor" class="com.rk.jaxws.cxf.interceptor.out.SetupInterceptor"/>
+	<bean id="SetupInterceptor" class="in.rk.jaxws.cxf.interceptor.out.SetupInterceptor"/>
 
 	<!-- Interceptors would be called as per apache cxf pipeline. below sequence does not matter -->
 	<cxf:bus>

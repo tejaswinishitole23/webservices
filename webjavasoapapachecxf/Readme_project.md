@@ -19,7 +19,7 @@
 	 * targetNamespace - defined in wsdl under targetNamespace at top
 	 *  */
 	@WebService(portName="CalculatorSOAP", serviceName="Calculator",
-	endpointInterface="com.rk.service.calculator.Calculator", 
+	endpointInterface="in.rk.service.calculator.Calculator", 
 	targetNamespace="http://www.rk.com/service/Calculator/")
 	public class CalculatorWS implements Calculator {...}
 	

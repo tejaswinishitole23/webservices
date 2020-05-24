@@ -1,0 +1,19 @@
+plugins {
+    id 'java-library'
+    id 'war'
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+	api group: 'org.springframework', name: 'spring-web', version: '5.2.6.RELEASE'
+	api group: 'org.springframework', name: 'spring-context', version: '5.2.6.RELEASE'
+	api group: 'org.springframework', name: 'spring-webmvc', version: '5.2.6.RELEASE'
+	
+	api group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.11.0'
+	api group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.11.0'
+	
+	providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+}
