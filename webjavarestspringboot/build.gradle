@@ -2,11 +2,15 @@ plugins {
 	id 'org.springframework.boot' version '2.3.0.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
 	id 'java'
+	id 'application'
+	id 'war'
 }
+mainClassName="in.rk.learn.web.java.springbootrest.SpringbootrestApplication" // for war creation
 
 group = 'in.rk.learn.web.java.'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
+
 
 repositories {
 	jcenter()
@@ -14,6 +18,11 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+	implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+
+
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}

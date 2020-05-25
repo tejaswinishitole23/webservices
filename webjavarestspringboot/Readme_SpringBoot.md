@@ -18,17 +18,97 @@ For example, if you want to use Spring and JPA for database access, it is suffic
 
 
 
-## Spring Boot Servlet Initializer
+## create war - use Spring Boot Servlet Initializer
 
 The traditional way of deployment is making the Spring Boot Application **@SpringBootApplication** class extend the **SpringBootServletInitializer** class. Spring Boot Servlet Initializer class file allows you to configure the application when it is launched by using Servlet Container.
 
+things to do:
 
+1. extends SpringBootServletInitializer in the main class
+
+2. implement configure method
+
+   ```
+   @Override
+   protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+   		return application.sources(SpringbootrestApplication.class);
+   }
+   ```
+
+3. gradle. build
+
+   a) add war and application plugin
+
+   ```
+   plugins {
+   	id 'org.springframework.boot' version '2.3.0.RELEASE'
+   	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+   	id 'java'
+   	id 'application'
+   	id 'war'
+   }
+   ```
+
+   b) define main class.
+
+   ```
+   mainClassName="in.rk.learn.web.java.springbootrest.SpringbootrestApplication" 
+   ```
+
+   
 
 ## Random notes
 
 @**RestController** is a special **controller** used in RESTFul web services and the equivalent of @**Controller** + @ResponseBody
 
 **@RestController**  started from Spring 4 for easier REST development.
+
+
+
+## Spring boot properties
+
+you can properties by putting them in application.properties in src/main/resources
+
+example, setting port will start tomcat on port 9000
+
+```
+server.port=9000
+```
+
+
+
+## Properties for different environment
+
+```
+--spring.profiles.active=dev
+```
+
+Create properties with file names like
+
+```
+application-dev.properties
+application-prod.properties
+```
+
+## key generation in java for ssl
+
+```
+keytool -genkey -alias tomcat -storetype PKCS12 -keyalg RSA -keysize 2048 -keystore keystore.p12 -validity 3650
+```
+
+
+
+## actuator
+
+works out of the box . just add the gradle dependencies.
+
+url link is printed when app is started.
+
+## Swagger
+
+works out of the box. add gradle dependencies.
+
+available at http://localhost:8080/swagger-ui.html
 
 
 

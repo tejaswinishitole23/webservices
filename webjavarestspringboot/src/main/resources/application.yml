@@ -1,0 +1,11 @@
+spring:
+   application:
+      name: demoservice
+server:
+   port: 8080
+
+# management part is for actuator
+#management:
+#   security:
+#      enabled: false
+#   port: 9000
