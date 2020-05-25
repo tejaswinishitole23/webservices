@@ -12,8 +12,7 @@ public class AppInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		String contentType = request.getContentType();
-		System.out.println(contentType);
+		System.out.println("path info:"+request.getRequestURI()+" contentType:"+request.getContentType()+" method:"+request.getMethod());
 		return true;
 	}
 

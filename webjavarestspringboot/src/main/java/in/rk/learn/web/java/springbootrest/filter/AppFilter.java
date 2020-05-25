@@ -27,7 +27,6 @@ public class AppFilter implements Filter {
 			throws IOException, ServletException {
 
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-		System.out.println(httpServletRequest.getContentType());
 		if (httpServletRequest.getContentType() == MediaType.APPLICATION_JSON.toString()
 				|| httpServletRequest.getContentType() == MediaType.APPLICATION_XML.toString()) {
 			CachedBodyHttpServletRequest servletRequest = new CachedBodyHttpServletRequest(httpServletRequest);
@@ -38,7 +37,7 @@ public class AppFilter implements Filter {
 			char charArray[] = new char[cachedBodyHttpServletRequest.getContentLength()];
 			isReader.read(charArray);
 			String msg = new String(charArray);
-			System.out.println(msg);
+			System.out.println("msg:"+msg);
 			filterchain.doFilter(cachedBodyHttpServletRequest, response);
 			request = cachedBodyHttpServletRequest;
 		} else {

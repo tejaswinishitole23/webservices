@@ -14,6 +14,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SpringbootrestApplication extends SpringBootServletInitializer { // SpringBootServletInitializer is for war
 																				// creation
 
+	// for war creation
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
 		return application.sources(SpringbootrestApplication.class);
