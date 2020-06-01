@@ -102,7 +102,24 @@ keytool -genkey -alias tomcat -storetype PKCS12 -keyalg RSA -keysize 2048 -keyst
 
 works out of the box . just add the gradle dependencies.
 
-url link is printed when app is started.
+url link is printed when app is started. something like:
+
+
+
+Other fine tuning includes changing properties
+
+```
+# actuator - expose everything
+management.endpoints.web.exposure.include=* 
+
+# actual info
+info.team.name=RK
+info.team.dev=rkdev
+info.version=1.0
+inf.project.owner=RK Learning
+```
+
+
 
 ## Swagger
 

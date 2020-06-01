@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema 
 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
-	targetNamespace="http://www.rk.com/schema/MwdsHeader"
-	xmlns:tns="http://www.rk.com/schema/MwdsHeader"
+	targetNamespace="http://www.rk.in/schema/MwdsHeader"
+	xmlns:tns="http://www.rk.in/schema/MwdsHeader"
 	elementFormDefault="qualified">
 
 	<xs:element name="mwdsHeaderInfo">

@@ -25,3 +25,6 @@ info:
    version: 1.0
    project:
       owner: RK Learning
+      
+cxf:
+   path: /Service

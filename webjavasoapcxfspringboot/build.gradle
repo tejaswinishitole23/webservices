@@ -1,6 +1,10 @@
 plugins {
-	// Apply the java-library plugin to add support for Java Library
+	id 'org.springframework.boot' version '2.3.0.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+	id 'java'
 	id 'java-library'
+	id 'application'
+	
 }
 
 configurations {
@@ -16,6 +20,26 @@ repositories {
 
 
 dependencies {
+	api 'org.apache.cxf:cxf-spring-boot-starter-jaxws:3.3.6'
+	
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-dependencies'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.hibernate:hibernate-validator:5.2.4.Final'
+/*
+
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
+	implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+	implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+*/
+
+	//api group: 'org.springframework.boot', name: 'spring-boot-starter-web'
+	//api group: 'org.springframework.boot', name: 'spring-boot-dependencies'
+	//api group: 'org.apache.cxf', name: 'cxf-spring-boot-starter-jaxws' //, version: '3.1.12'
+	//api group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+	//api group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+//	api group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.11.0'
 
 	cxf group: 'org.apache.cxf', name: 'cxf-rt-frontend-jaxws', version: '3.3.5'
 	cxf group: 'org.apache.cxf', name: 'cxf-rt-transports-http', version: '3.3.5'
@@ -23,37 +47,14 @@ dependencies {
 	cxf group: 'org.springframework', name: 'spring-context', version: '5.2.4.RELEASE'
 	cxf group: 'org.apache.cxf', name: 'cxf-rt-wsdl', version: '3.3.5'
 	cxf group: 'org.apache.cxf', name: 'cxf-tools-wsdlto-frontend-jaxws', version: '3.3.5'
-	cxf group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
-	cxf group: 'org.glassfish.jaxb', name: 'jaxb-runtime', version: '2.3.1'
+	cxf group: 'org.glassfish.jaxb', name: 'jaxb-runtime', version: '2.3.3'
 	cxf group: 'org.glassfish.jaxb', name: 'jaxb-core', version: '2.3.0.1'
 	cxf group: 'org.apache.cxf', name: 'cxf-tools-wsdlto-databinding-jaxb', version: '3.3.5'
-	cxf group: 'org.slf4j', name: 'slf4j-api', version: '1.7.30'
-	cxf group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.30'
-	cxf group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.13.1'
-	cxf group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.13.1'
+	cxf group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
 	cxf group: 'javax.xml.ws', name: 'jaxws-api', version: '2.3.1'
 	cxf group: 'javax.jws', name: 'javax.jws-api', version: '1.1'
-
-
-	api group: 'org.apache.cxf', name: 'cxf-rt-frontend-jaxws', version: '3.3.5'
-	api group: 'org.apache.cxf', name: 'cxf-rt-transports-http', version: '3.3.5'
-	api group: 'org.springframework', name: 'spring-web', version: '5.2.4.RELEASE'
-	api group: 'org.springframework', name: 'spring-context', version: '5.2.4.RELEASE'
-	api group: 'org.apache.cxf', name: 'cxf-rt-wsdl', version: '3.3.5'
-	api group: 'org.apache.cxf', name: 'cxf-tools-wsdlto-frontend-jaxws', version: '3.3.5'
-	api group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
-	api group: 'org.glassfish.jaxb', name: 'jaxb-runtime', version: '2.3.1'
-	api group: 'org.glassfish.jaxb', name: 'jaxb-core', version: '2.3.0.1'
-	api group: 'org.apache.cxf', name: 'cxf-tools-wsdlto-databinding-jaxb', version: '3.3.5'
-	api group: 'org.slf4j', name: 'slf4j-api', version: '1.7.30'
-	api group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.30'
-	api group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.13.1'
-	api group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.13.1'
-	api group: 'javax.xml.ws', name: 'jaxws-api', version: '2.3.1'
-	api group: 'javax.jws', name: 'javax.jws-api', version: '1.1'
-	api group: 'javax.activation', name: 'activation', version: '1.1.1'
-	api group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
-	
+	cxf group: 'javax.jws', name: 'javax.jws-api', version: '1.1'
+		
 }
 
 ext {

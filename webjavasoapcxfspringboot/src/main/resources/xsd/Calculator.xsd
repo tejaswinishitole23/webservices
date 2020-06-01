@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-	targetNamespace="http://www.rk.com/schema/Calculator"
-	xmlns:tns="http://www.rk.com/schema/Calculator"
+<xs:schema 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.rk.in/schema/Calculator"
+	xmlns:tns="http://www.rk.in/schema/Calculator"
 	elementFormDefault="qualified">
 
 	<xs:element name="calculateDataRequest">
@@ -13,16 +14,14 @@
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="operation" type="xs:string" />
-				<xs:element name="numbers" type="xs:int"
-					maxOccurs="unbounded" />
-				<xs:element name="user" type="tns:UserType"
-					maxOccurs="unbounded" />
+				<xs:element name="numbers" type="xs:int" maxOccurs="unbounded" />
+				<xs:element name="user" type="tns:UserType" maxOccurs="unbounded" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-
-
-
+	
+	
+	
 	<xs:element name="calculateDataResponse">
 		<xs:annotation>
 			<xs:documentation>
@@ -35,7 +34,7 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-
+	
 	<xs:complexType name="UserType">
 		<xs:sequence>
 			<xs:element name="userId" type="xs:int"></xs:element>
