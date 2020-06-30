@@ -1,0 +1,17 @@
+plugins {
+    id 'java-library'
+    id 'war'
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+
+	api group: 'javax.websocket', name: 'javax.websocket-api', version: '1.0'
+    api group: 'org.slf4j', name: 'slf4j-api', version: '1.7.30'
+	api group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+	api group: 'ch.qos.logback', name: 'logback-core', version: '1.2.3'
+
+}

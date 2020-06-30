@@ -12,15 +12,11 @@ import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
-import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MultivaluedMap;
 
 import org.apache.cxf.jaxrs.ext.MessageContext;
 import org.apache.cxf.message.Message;
-import org.apache.cxf.phase.PhaseInterceptorChain;
 import org.springframework.web.bind.annotation.RequestBody;
-
-import com.sun.xml.xsom.impl.scd.Iterators.Map;
 
 import in.rk.learn.web.java.rest.codegen.CalcHeaderInfo;
 import in.rk.learn.web.java.rest.codegen.CalculateDataRequest;

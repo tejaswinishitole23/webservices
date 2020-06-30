@@ -1,0 +1,17 @@
+plugins {
+    id 'java-library'
+    id 'war'
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+	compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.30'
+	compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+	compile group: 'ch.qos.logback', name: 'logback-core', version: '1.2.3'
+	compile group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.1.1'
+	compile group: 'org.jboss.resteasy', name: 'resteasy-jaxrs', version: '3.12.1.Final'
+	
+}

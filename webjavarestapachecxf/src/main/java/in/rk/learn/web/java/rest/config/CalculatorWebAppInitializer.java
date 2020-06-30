@@ -12,8 +12,6 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 
 public class CalculatorWebAppInitializer implements WebApplicationInitializer {
 
-//	private static final String projectBasePackage="in.rk.learn.web.java.rest";
-	
 	@Override
 	public void onStartup(ServletContext container) throws ServletException {
 		

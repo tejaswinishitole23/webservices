@@ -24,6 +24,16 @@ Json Request body
 		]
 }
 
+
+Command line options
+
+java -jar `jarname` ( check build libs )
+
+after app starts test it:
+Curl with body:
+
+curl --header "Content-Type: application/json"  --request POST --data ' {		"op": "+", "numbers": [ "444", "25"	] } ' http://localhost:8080/calc/do?key=abcd
+
 * */
 
 @RestController

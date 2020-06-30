@@ -129,3 +129,11 @@ available at http://localhost:8080/swagger-ui.html
 
 
 
+## File Upload in postman
+
+choose form-data
+
+Postman will automatically add header - multipart/form-data; boundary=<calculated when request is sent>
+
+Accept - `*/*`  so you can parse any response
+
